@@ -4,6 +4,8 @@ import { getFakeId, mockUser } from "./helpers";
 import { NotFound } from "../../src/responseHandlers/errorHandlers";
 import UserRepository from "../../src/repositories/userRepository";
 
+//jest
+
 const db = new dbHandler();
 
 /**

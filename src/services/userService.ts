@@ -6,9 +6,11 @@ const repository = new UserRepository();
 
 export default class UserService {
   async createUser(user: ICreateUserDTO): Promise<IUser> {
-    const id = await repository.create(user);
+    //if user dto has a password
+    //treat the logic here
+    //encrypt it here
 
-    return repository.getById(id);
+    return repository.create(user);
   }
 
   async getById(_id: string): Promise<IUser> {

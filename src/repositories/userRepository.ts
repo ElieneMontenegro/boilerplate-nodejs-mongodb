@@ -2,11 +2,23 @@ import { ICreateUserDTO, IUser, IUpdateUserDTO } from "../types/userDTOs";
 
 import userModel from "../db/models/userModel";
 
+//working with mongoose
 export default class UserRepository {
-  async create(user: ICreateUserDTO): Promise<string> {
+  async create(user: ICreateUserDTO): Promise<IUser> {
+    //assemblying the database object 
+
+    // const userToCreate = {
+    //   name: user.name,
+    //   email: ...
+    // }
+
     const { _id } = await userModel.create(user);
 
-    return _id;
+    //repository -> db -> repository : 0.2s
+
+    return userModel.findOne({ _id }).exec();
+
+    //repository -> db -> repository : 0.2s
   }
 
   async getById(_id: string): Promise<IUser> {

@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 
+import * as emailValidator from "email-validator";
+
 import UserService from "../services/userService";
 import { ICreateUserDTO, IUpdateUserDTO } from "../types/userDTOs";
 import { httpStatusCodes } from "../responseHandlers/statusCodes";
@@ -10,6 +12,16 @@ export default class UserController {
   async createUser(req: Request, res: Response) {
     const user: ICreateUserDTO = req.body;
 
+    //i want the name to specific
+    //validate here
+
+    //validate the email
+    const isValid = emailValidator.validate(req.body.email);
+    if (!isValid) {
+      return  res.status(httpStatusCodes.BAD_REQUEST)
+        .json(error.message ?? error);
+    }
+    
     try {
       const result = await service.createUser(user);
 
@@ -20,6 +32,8 @@ export default class UserController {
         .json(error.message ?? error);
     }
   }
+
+  //repository pattern
 
   async getUserById(req: Request, res: Response) {
     const { id } = req.params;
